@@ -1,14 +1,31 @@
 ---
-- name: Get vector distrib
+- name: Get vector distrib CentOS
+  when: ansible_os_family == 'RedHat'
   ansible.builtin.get_url:
     url: "https://packages.timber.io/vector/{{ vector_version }}/vector-x86_64.rpm"
     dest: "./vector-{{ vector_version }}.rpm"
     mode: "0755"
-- name: Install vector packages
+
+- name: Install vector packages CentOS
   become: true
+  become_method: su
+  when: ansible_os_family == 'RedHat'
   ansible.builtin.yum:
+    disable_gpg_check: yes
     name:
       - vector-{{ vector_version }}.rpm
-  notify: Start vector service
-- name: Flush handlers
-  notify: Start vector service
+  #notify: Start vector service
+
+- name: Get vector distrib Ubuntu
+  when: ansible_os_family == 'Debian'
+  ansible.builtin.get_url:
+    url: "https://packages.timber.io/vector/{{ vector_version }}/vector-amd64.deb"
+    dest: "./vector-{{ vector_version }}.deb"
+    mode: "0755"
+
+- name: Install vector packages Ubuntu
+  become: true
+  become_method: su
+  when: ansible_os_family == 'Debian'
+  ansible.builtin.apt:
+    deb: ./vector-{{ vector_version }}.deb
