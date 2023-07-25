@@ -8,5 +8,9 @@
     - name: Example assertion
       ansible.builtin.assert:
         that: true
-    # - name: Check vector versions
-    #   ansible.builtin.assert:
+    - name: Check bin file vector
+      ansible.builtin.command: ls /usr/bin/vector
+      register: result
+      failed_when:
+        - result.rc != 0
+      changed_when: False

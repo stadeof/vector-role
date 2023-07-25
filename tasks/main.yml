@@ -14,7 +14,7 @@
     disable_gpg_check: yes
     name:
       - vector-{{ vector_version }}.rpm
-  #notify: Start vector service
+  # notify: Start vector service
 
 - name: Get vector distrib Ubuntu
   when: ansible_os_family == 'Debian'
