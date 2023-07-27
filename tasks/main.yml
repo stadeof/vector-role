@@ -8,7 +8,6 @@
 
 - name: Install vector packages CentOS
   become: true
-  become_method: su
   when: ansible_os_family == 'RedHat'
   ansible.builtin.yum:
     disable_gpg_check: yes
@@ -24,7 +23,6 @@
 
 - name: Install vector packages Ubuntu
   become: true
-  become_method: su
   when: ansible_os_family == 'Debian'
   ansible.builtin.apt:
     deb: ./vector-{{ vector_version }}.deb
