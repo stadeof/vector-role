@@ -14,3 +14,10 @@
       failed_when:
         - result.rc != 0
       changed_when: False
+    - name: Check config file
+      ansible.builtin.command: ls /etc/vector/vector.toml
+      register: result
+      failed_when:
+        - result.rc != 0
+      changed_when: False
+      

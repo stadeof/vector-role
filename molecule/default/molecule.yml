@@ -6,22 +6,15 @@ driver:
 platforms:
   - name: centos7
     image: centos:7
-    command: /sbin/init
-    tmpfs:
-      - /run
-      - /tmp
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    dockerfile: ../Dockerfile.centos7.j2
+    pre_build_image: false
   - name: centos8
     image: centos:8
     dockerfile: ../files/Dockerfile.centos8.j2
     pre_build_image: false
-    command: /sbin/init
-    privileged: true
   - name: ubuntu
     image: pycontribs/ubuntu:latest
     pre_build_image: true
-    privileged: true
 provisioner:
   name: ansible
 verifier:
