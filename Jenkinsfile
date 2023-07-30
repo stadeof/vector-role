@@ -3,9 +3,10 @@ pipeline {
         label 'ansible'
     }
     stages {
-        stage('First')
+        stage('First') {
             steps {
                 sh 'molecule test'
             }
+        }           
     }
 }
